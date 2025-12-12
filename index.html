@@ -205,7 +205,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                          For Desktop, 120px-180px width is recommended.
                          For Mobile, the image resizes automatically or you can set a separate class.
                     -->
-                    <img src="images/logo.png" 
+                    <img src="https://ik.imagekit.io/mkek1asn5/images/logo.webp?updatedAt=1765274060860" 
                          alt="شعار شركة الحكمة" 
                          style="width: 95px; height: auto;" 
                          class="object-contain">
@@ -791,33 +791,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 
     <!-- Floating Call Buttons -->
-    <div class="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-40 flex flex-col space-y-3">
+    <div class="fixed bottom-4 left-4 md:bottom-6 md:left-3 z-40 flex flex-col space-y-2">
         <!-- 4. BUTTON TEXT REPLACED (No longer shows number) -->
-        <a href="javascript:void(0)" data-phone="01032231931" class="flex items-center justify-center bg-secondary text-white font-bold px-6 py-3 rounded-full shadow-glow transform hover:scale-105 transition-transform group border-2 border-white" aria-label="Call Now">
+        <a href="javascript:void(0)" data-phone="01032231931" class="flex items-center justify-center bg-secondary text-white font-bold px-6 py-2 rounded-full shadow-glow transform hover:scale-105 transition-transform group border-2 border-white" aria-label="Call Now">
             <i class="fas fa-phone text-xl group-hover:animate-ring -scale-x-100"></i>
             <span class="text-lg tracking-wider mr-2">إتصل الان</span>
         </a>
     </div>
 
-    <!-- Confirmation Call Modal -->
-    <div id="call-modal" class="fixed inset-0 z-[100] hidden bg-neutral-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all scale-100 p-8 text-center">
-            <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-phone-volume text-3xl text-primary animate-pulse"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-neutral-900 mb-2">تأكيد الاتصال</h3>
-            <p class="text-gray-500 mb-8">هل تود الاتصال بالرقم التالي؟</p>
+    <!-- Confirmation Call Modal (UPDATED) -->
+    <div id="call-modal" class="fixed inset-0 z-[100] hidden bg-neutral-900/90 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all scale-100 p-6 text-center relative border-t-8 border-green-500">
             
-            <div class="bg-gray-50 rounded-xl p-4 mb-8 border border-gray-100">
-                <span id="modal-phone-number" class="text-3xl font-black text-primary font-mono" dir="ltr">01xxxxxxxxx</span>
+            <!-- Close X Button -->
+            <button id="close-modal-x" class="absolute top-3 right-4 text-gray-300 hover:text-gray-500 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <!-- Animated Icon -->
+            <div class="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 relative">
+                 <div class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20"></div>
+                <i class="fas fa-phone-volume text-4xl text-green-600 animate-pulse"></i>
             </div>
             
-            <div class="grid grid-cols-2 gap-4">
-                <button id="close-modal" class="py-3 px-4 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition">إلغاء</button>
-                <a id="confirm-call" href="#" class="py-3 px-4 rounded-xl bg-primary text-white font-bold hover:bg-primary-light transition flex items-center justify-center gap-2 shadow-lg shadow-primary/30">
-                    <i class="fas fa-phone -scale-x-100"></i> اتصل الآن
-                </a>
-            </div>
+            <h3 class="text-2xl font-black text-gray-800 mb-6">تأكيد الاتصال</h3>
+            <!-- Note: Removed the redundant Number Display box here as requested -->
+            
+            <!-- Main CTA Button -->
+            <a id="confirm-call" href="#" class="flex flex-col items-center justify-center w-full py-4 rounded-xl bg-gradient-to-r from-green-600 to-green-500 text-white shadow-xl shadow-green-500/40 hover:shadow-green-500/60 hover:-translate-y-1 transition-all duration-300 group border-b-4 border-green-700 active:border-b-0 active:translate-y-1 ring-2 ring-offset-2 ring-green-500">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-phone -scale-x-100 text-3xl group-hover:animate-bounce"></i>
+                    <span class="text-3xl font-black">اتصل الآن</span>
+                </div>
+                <span class="text-sm font-medium mt-1 opacity-90 bg-white/20 px-4 py-0.5 rounded-full shadow-inner font-mono tracking-widest" dir="ltr">01032231931</span>
+            </a>
+            
+            <button id="close-modal" class="mt-6 text-gray-400 text-sm font-medium hover:text-gray-600 transition-colors underline">إلغاء</button>
         </div>
     </div>
 
@@ -899,13 +908,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // Modal Logic
             const modal = document.getElementById('call-modal');
             const confirmBtn = document.getElementById('confirm-call');
-            const numberDisplay = document.getElementById('modal-phone-number');
             const closeBtn = document.getElementById('close-modal');
+            const closeBtnX = document.getElementById('close-modal-x');
             const callLinks = document.querySelectorAll('a[data-phone]');
 
             function openModal(phoneNumber) {
                 const cleanNumber = phoneNumber.trim();
-                numberDisplay.textContent = cleanNumber;
                 confirmBtn.setAttribute('href', `tel:${cleanNumber}`);
                 modal.classList.remove('hidden');
             }
@@ -923,6 +931,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
 
             closeBtn.addEventListener('click', closeModal);
+            
+            if(closeBtnX) {
+                closeBtnX.addEventListener('click', closeModal);
+            }
+
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeModal();
